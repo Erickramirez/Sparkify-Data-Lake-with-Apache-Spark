@@ -112,9 +112,10 @@ def process_log_data(spark, input_data, output_data):
     song_df = spark.read.json(os.path.join(input_data, "song_data/*/*/*/*.json")).dropDuplicates(['song_id'])
 
     # extract columns from joined song and log datasets to create songplays table 
-    songplays_table = df.join(song_df, song_df.title == df.song
-                              & song_df.artist_name == df.artist
-                              & song_df.duration == df.length,
+    songplays_table = df.join(song_df,
+                              (song_df.title == df.song)
+                              & (song_df.artist_name == df.artist)
+                              & (song_df.duration == df.length),
                               'inner'
                               )
 
